@@ -33,7 +33,10 @@
    
 4. 使用GUI加载、压缩和保存图像。
 
-5. 也有打包好的``image_Compression.exe``可以直接使用
+5. 也可以使用``PyInstaller``打包脚本为``.exe``可执行文件
+   ```bash
+   PyInstaller -F -w image_Compression.py
+   ```
 
 ## GUI组件
 - **加载图像按钮**：启动图像加载过程。
