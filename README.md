@@ -15,6 +15,7 @@
 - ``NumPy``
 - ``PIL（Pillow）``
 - ``Tkinter``（通常随Python安装）
+- ``PyInstaller``
 
 ## 安装指南
 1. 确保已安装``Python``及所有必需的包。
