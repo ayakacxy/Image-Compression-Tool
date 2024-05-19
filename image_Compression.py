@@ -225,3 +225,39 @@ compressed_image_label = tk.Label(compressed_frame)
 compressed_image_label.pack()
 
 root.mainloop()
+
+def svd(A, compute_uv=True):#我自己实现的SVD算法，实战中一坨屎，经常崩溃还算不出来
+    """ 使用NumPy计算矩阵A的奇异值分解(Singular Value Decomposition, SVD)。
+    
+    参数:
+        A (np.ndarray): 输入矩阵。
+        compute_uv (bool): 是否计算U和V矩阵。
+        
+    返回:
+        U (np.ndarray): 左奇异向量。
+        S (np.ndarray): 奇异值。
+        V (np.ndarray): 右奇异向量。
+    """
+    # 步骤1: 计算 A^T * A
+    AT_A = np.dot(A.T, A)
+    
+    # 步骤2: 计算 A^T * A 的特征值和特征向量
+    eigvals, eigvecs = np.linalg.eigh(AT_A)
+    
+    # 步骤3: 对特征值和相应的特征向量进行排序
+    sorted_indices = np.argsort(-eigvals)
+    eigvals = eigvals[sorted_indices]
+    V = eigvecs[:, sorted_indices]
+    
+    # 步骤4: 计算奇异值
+    S = np.sqrt(eigvals)
+    
+    # 步骤5: 如果需要，计算U
+    if compute_uv:
+        U = np.dot(A, V) / S
+        # 标准化U的列
+        U = np.array([u / np.linalg.norm(u) if np.linalg.norm(u) != 0 else np.zeros_like(u) for u in U.T]).T
+    else:
+        U = None
+
+    return U, S, V
